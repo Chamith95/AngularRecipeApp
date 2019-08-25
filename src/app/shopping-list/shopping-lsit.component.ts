@@ -17,4 +17,8 @@ export class ShoppingLsitComponent implements OnInit {
   ngOnInit() {
   }
 
+  onIngredientAdded(ingreidient:Ingriedient){
+    this.ingriedients.push(ingreidient);
+  }
+
 }
