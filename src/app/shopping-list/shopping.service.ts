@@ -8,7 +8,8 @@ import { Subject } from 'rxjs';
 })
 export class ShoppingService {
 
-  ingredientsChanged =new Subject<Ingriedient[]>()
+  ingredientsChanged =new Subject<Ingriedient[]>();
+  startedEditing =new Subject<number>()
 
   ingriedients:Ingriedient[]=[
     new Ingriedient('Apples',5),
@@ -21,6 +22,10 @@ export class ShoppingService {
      return this.ingriedients.slice();
    }
 
+   getIngredient(index:number){
+     return this.ingriedients[index];
+   }
+
    addIngredient(ingredient:Ingriedient){
      this.ingriedients.push(ingredient);
      this.ingredientsChanged.next(this.ingriedients.slice());
@@ -31,5 +36,14 @@ export class ShoppingService {
      this.ingredientsChanged.next(this.ingriedients.slice());
    } 
 
+   updateIngredient(index:number,newIngredient:Ingriedient){
+     this.ingriedients[index]=newIngredient;
+     this.ingredientsChanged.next(this.ingriedients.slice());
+   }
+
+   deleteIngredient(index:number){
+     this.ingriedients.splice(index,1);
+     this.ingredientsChanged.next(this.ingriedients.slice())
+   }
    
 }
