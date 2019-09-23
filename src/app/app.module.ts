@@ -19,6 +19,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducers';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot({shoppingList:shoppingListReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]
