@@ -1,4 +1,5 @@
 import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -8,11 +9,14 @@ import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService:AuthService) { }
 
   ngOnInit() {
   }
 
+  onLogout(){
+    this.authService.logout();
+  }
 
 
 }
