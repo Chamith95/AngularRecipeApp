@@ -1,6 +1,6 @@
 import { Effect, Actions, ofType } from '@ngrx/effects'
 import { Injectable } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, mergeMap } from 'rxjs/operators';
 import { from } from 'rxjs'
 
 import * as AuthActions from './auth.actions'
@@ -18,7 +18,26 @@ export class AuthEffects{
 
         switchMap((authData:{username:string,password:string})=>{
             return from(this.afAuth.auth.createUserWithEmailAndPassword(authData.username,authData.password))
+        }),
+
+        switchMap(()=>{
+            return from(this.afAuth.auth.currentUser.getIdToken())
+        }),
+
+        mergeMap((token:string)=>{
+            return [
+                {
+                    type: AuthActions.SIGNUP
+                },
+                {
+                    type:AuthActions.SET_TOKEN,
+                    payload:token 
+                }
+
+            ];
         })
+
+
      )
        
 
